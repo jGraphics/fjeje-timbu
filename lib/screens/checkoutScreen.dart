@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fjeje_timbu/constants/colors.dart';
 
 class CheckoutSuccessPage extends StatelessWidget {
   const CheckoutSuccessPage({super.key});
@@ -21,14 +22,14 @@ class CheckoutSuccessPage extends StatelessWidget {
           children: [
             Icon(
               Icons.check_circle,
-              size: 100,
-              color: Colors.green,
+              size: 80,
+              color: colorPrimary,
             ),
             SizedBox(height: 20),
             Text(
               'Order Placed Successfully',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),

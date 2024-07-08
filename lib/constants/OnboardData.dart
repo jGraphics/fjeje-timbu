@@ -6,7 +6,7 @@ final List<String> titlesList = [
   'To get product data'
 ];
 final List<String> subtitlesList = [
-  'Built with flutter 3 night long',
+  'Built with flutter 3 nights long',
   'Debugging the api bugs with slack devs.',
   'See the Productst'
 ];

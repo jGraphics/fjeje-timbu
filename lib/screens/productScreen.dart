@@ -68,8 +68,8 @@ void getAllProduct() {
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 8,
+                        crossAxisSpacing: 8,
                         mainAxisExtent: 350,
                       ),
                       itemCount: _list.length,
@@ -94,7 +94,7 @@ void getAllProduct() {
                           child: Card(
                             color: Colors.white.withOpacity(1),
                             child: SizedBox(
-                              width: 240,
+                              width: 400,
                               child: Padding(
                                 padding: const EdgeInsets.only(
                                   top: 5.0,
@@ -105,7 +105,7 @@ void getAllProduct() {
                                 child: Column(
                                   children: [
                                     SizedBox(
-                                      width: 300,
+                                      width: 350,
                                       height: 250,
                                       child: Column(
                                         children: [
@@ -125,7 +125,7 @@ void getAllProduct() {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'N${product.currentPrice![index = 0].ngn[index = 0].toString()}',
+                                          '₦${product.currentPrice![index = 0].ngn[index = 0].toString()}',
                                           style: const TextStyle(
                                             fontSize: 15,
                                             color: Colors.black,
@@ -159,7 +159,7 @@ void getAllProduct() {
                                           },
                                           child: const Center(
                                             child: Icon(
-                                              Icons.shopping_cart_outlined,
+                                              Icons.shopping_bag_outlined,
                                               color: colorPrimary,
                                               size: 24,
                                             ),

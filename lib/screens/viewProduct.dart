@@ -125,7 +125,7 @@ class _ViewProductPageState extends State<ViewProductPage> {
                                     color: Colors.black),
                               ),
                               Text(
-                                'N ${widget.itemPrice}',
+                                '₦${widget.itemPrice}',
                                 style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -139,7 +139,10 @@ class _ViewProductPageState extends State<ViewProductPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('in Stock = ${item2!.isAvailable}'),
+                              Text('Quantity = ${item2!.availableQuantity} pcs available now ',
+                              style: const TextStyle(
+                                color: Colors.orange),
+                                ),
                               InkWell(
                                 onTap: () {},
                                 child: const SizedBox(
@@ -162,7 +165,7 @@ class _ViewProductPageState extends State<ViewProductPage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       const Text(
-                                        "Details:",
+                                        "Description",
                                         style: TextStyle(
                                             fontSize: 17,
                                             fontWeight: FontWeight.bold,
@@ -177,14 +180,14 @@ class _ViewProductPageState extends State<ViewProductPage> {
                                               softWrap: true,
                                               style: const TextStyle(
                                                   fontSize: 17,
-                                                  fontWeight: FontWeight.bold,
+                                                  fontWeight: FontWeight.normal,
                                                   color: Colors.black),
                                             )
                                           : Text(
                                               item2!.description,
                                               style: const TextStyle(
                                                   fontSize: 17,
-                                                  fontWeight: FontWeight.bold,
+                                                  fontWeight: FontWeight.normal,
                                                   color: Colors.black),
                                             )
                                     ]),

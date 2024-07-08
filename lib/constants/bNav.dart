@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:fjeje_timbu/constants/colors.dart';
 import 'package:fjeje_timbu/screens/cartScreen.dart';
 import 'package:fjeje_timbu/screens/profileScreen.dart';
@@ -59,13 +58,13 @@ class _BNavWidgetState extends State<BNavWidget> {
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           const BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.house_fill),
+          icon: Icon(Icons.house_rounded),
             label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Stack(
               children: <Widget>[
-                const Icon(CupertinoIcons.shopping_cart),
+                const Icon(Icons.shopping_cart_outlined),
                 if (cart.isNotEmpty)
                   Positioned(
                     right: 0,
@@ -94,7 +93,7 @@ class _BNavWidgetState extends State<BNavWidget> {
             label: 'Cart',
           ),
           const BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.person_fill),
+            icon: Icon(Icons.person_2_outlined),
             label: 'Profile',
           ),
         ],
