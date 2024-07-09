@@ -130,7 +130,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                             success(
                                                 context,
                                                 "${product.name} added to cart",
-                                                colorPrimary);
+                                                colorPrimary, message: '');
                                             widget.addToCart(product);
                                           },
                                         ),

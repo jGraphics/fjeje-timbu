@@ -61,7 +61,7 @@ void decrementQuantity(Item product) {
     });
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cart'),
+        title: const Text('Your cart'),
         centerTitle: true,
         backgroundColor: colorPrimary,
       ),
@@ -71,7 +71,7 @@ void decrementQuantity(Item product) {
             ? Column(
                 children: [
                   const Text(
-                    "Your cart Items",
+                    "The Items",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
