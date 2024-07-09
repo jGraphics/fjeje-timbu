@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fjeje_timbu/constants/colors.dart';
 import 'package:fjeje_timbu/model/messageRes.dart';
 import 'package:fjeje_timbu/screens/checkoutScreen.dart';
 import 'package:fjeje_timbu/apis/models/listOfProductItem.dart';
@@ -49,7 +50,8 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cart'),
-        backgroundColor: const Color.fromARGB(255, 243, 235, 235),
+        centerTitle: true,
+        backgroundColor: colorPrimary,
       ),
       backgroundColor: const Color.fromARGB(255, 243, 235, 235),
       body: SingleChildScrollView(
