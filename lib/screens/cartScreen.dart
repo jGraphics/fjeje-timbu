@@ -4,146 +4,170 @@ import 'package:fjeje_timbu/screens/checkoutScreen.dart';
 import 'package:fjeje_timbu/apis/models/listOfProductItem.dart';
 
 class CartPage extends StatefulWidget {
-  const CartPage(
-      {super.key,
-      required List<Item> cart,
-      required void Function(Item product) removeFromCart});
+  final List<Item> cart;
+  final void Function(Item product) removeFromCart;
+
+  const CartPage({super.key, required this.cart, required this.removeFromCart});
 
   @override
-  State<CartPage> createState() => _CartPageState();
+  _CartPageState createState() => _CartPageState();
 }
 
 class _CartPageState extends State<CartPage> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    setState(() {
-      cart.runtimeType;
-    });
-    print('object');
-  }
-
-  void removeFromCart(Item product) {
-    cart.remove(product);
-    print('${product.name} removed from cart');
-  }
-
   void checkout() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const CheckoutSuccessPage()),
     );
     setState(() {
-      cart.clear();
+      widget.cart.clear();
     });
 
     success(context: context, message: 'Cart cleared.');
   }
 
+  void incrementQuantity(Item product) {
+    setState(() {
+      product.quantity++;
+    });
+  }
+
+  void decrementQuantity(Item product) {
+    setState(() {
+      if (product.quantity > 1) {
+        product.quantity--;
+      }
+    });
+  }
+
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    String totalPrice = cart.fold('0', (previousValue, product) {
-      return (double.parse(previousValue) + product.currentPrice![0].ngn[0])
-          .toString();
+  Widget build(BuildContext context) {
+    double totalPrice = widget.cart.fold(0.0, (previousValue, product) {
+      return previousValue +
+          (product.currentPrice?[0].ngn[0] * product.quantity);
     });
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Cart'),
-          backgroundColor: const Color.fromARGB(255, 243, 235, 235),
-        ),
+      appBar: AppBar(
+        title: const Text('Cart'),
         backgroundColor: const Color.fromARGB(255, 243, 235, 235),
-        body: SingleChildScrollView(
-          child: cart.isNotEmpty
-              ? Column(
-                  children: [
-                    const Text(
-                      "Products in Your cart",
-                      style: TextStyle(fontSize: 20),
+      ),
+      backgroundColor: const Color.fromARGB(255, 243, 235, 235),
+      body: SingleChildScrollView(
+        child: widget.cart.isNotEmpty
+            ? Column(
+                children: [
+                  const Text(
+                    "Products in Your cart",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: widget.cart.length,
+                    physics: const NeverScrollableScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    itemBuilder: (context, index) {
+                      Item product = widget.cart[index];
+                      return ListTile(
+                        leading: Image.network(
+                            'https://api.timbu.cloud/images/${product.photos[0].url}'),
+                        title: Text('${product.name}'),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                '₦${product.currentPrice?[0].ngn[0].toString()}'),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Quantity: ${product.quantity}'),
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.remove),
+                                      onPressed: () {
+                                        decrementQuantity(product);
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.add),
+                                      onPressed: () {
+                                        incrementQuantity(product);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            success(
+                                context: context,
+                                message: '${product.name} removed from cart');
+                            setState(() {
+                              widget.removeFromCart(product);
+                            });
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      'Total Price: ₦$totalPrice',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: cart.length,
-                      physics: const NeverScrollableScrollPhysics(
-                          parent: AlwaysScrollableScrollPhysics()),
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: Image.network(
-                              'https://api.timbu.cloud/images/${cart[index].photos[index = 0].url}'),
-                          title: Text('${cart[index].name}'),
-                          subtitle: Text(
-                              '\N${cart[index].currentPrice![index = 0].ngn[index = 0].toString()}'),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.red),
-                            onPressed: () {
-                              success(
-                                  context: context,
-                                  message:
-                                      '${cart[index].name} removed from cart');
-                              setState(() {
-                                removeFromCart(cart[index]);
-                              });
-                            },
-                          ),
-                        );
+                  ),
+                  const SizedBox(
+                    width: 50,
+                    height: 50,
+                  ),
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        checkout();
                       },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        'Total Price: \₦$totalPrice',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                      child: Container(
+                        width: 220,
+                        height: 45,
+                        decoration: const BoxDecoration(
+                            color: Colors.black,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.all(Radius.circular(7))),
+                        child: Center(
+                          child: Text("checkout".toUpperCase(),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w800)),
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 50,
-                      height: 50,
-                    ),
-                    Center(
-                      child: InkWell(
-                        onTap: () {
-                          checkout();
-                        },
-                        child: Container(
-                          width: 220,
-                          height: 45,
-                          decoration: const BoxDecoration(
-                              color: Colors.black,
-                              shape: BoxShape.rectangle,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(7))),
-                          child: Center(
-                            child: Text("checkout".toUpperCase(),
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w800)),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                )
-              : const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 200,
-                    ),
-                    Center(
-                      child: Text('0 Items in Your Cart'),
-                    ),
-                  ],
-                ),
-        ));
+                  )
+                ],
+              )
+            : const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 200,
+                  ),
+                  Center(
+                    child: Text('0 Items in Your Cart'),
+                  ),
+                ],
+              ),
+      ),
+    );
   }
 }

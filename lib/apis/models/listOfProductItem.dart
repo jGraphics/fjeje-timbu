@@ -33,6 +33,7 @@ class Item {
   dynamic buyingPrice;
   dynamic extraInfos;
   dynamic featuredReviews;
+  int quantity;
 
   Item({
     this.name,
@@ -66,6 +67,7 @@ class Item {
     this.buyingPrice,
     this.extraInfos,
     this.featuredReviews,
+    this.quantity = 1, // Initialize quantity
   });
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
@@ -102,6 +104,7 @@ class Item {
         buyingPrice: json["buying_price"],
         extraInfos: json["extra_infos"],
         featuredReviews: json["featured_reviews"],
+        quantity: json["quantity"] ?? 1, // Parse quantity
       );
 
   Map<String, dynamic> toJson() => {
@@ -137,6 +140,7 @@ class Item {
         "buying_price": buyingPrice,
         "extra_infos": extraInfos,
         "featured_reviews": featuredReviews,
+        "quantity": quantity, // Add quantity to JSON
       };
 }
 
@@ -176,6 +180,7 @@ class Item2 {
   dynamic buyingPrice;
   dynamic extraInfos;
   dynamic featuredReviews;
+  int quantity;
 
   Item2({
     required this.name,
@@ -209,6 +214,7 @@ class Item2 {
     this.buyingPrice,
     this.extraInfos,
     this.featuredReviews,
+    this.quantity = 1,  // Initialize quantity
   });
 
   factory Item2.fromJson(Map<String, dynamic> json) => Item2(
@@ -243,6 +249,7 @@ class Item2 {
         buyingPrice: json["buying_price"],
         extraInfos: json["extra_infos"],
         featuredReviews: json["featured_reviews"],
+        quantity: json["quantity"] ?? 1,  // Parse quantity
       );
 
   Map<String, dynamic> toJson() => {
@@ -277,5 +284,6 @@ class Item2 {
         "buying_price": buyingPrice,
         "extra_infos": extraInfos,
         "featured_reviews": featuredReviews,
+        "quantity": quantity,  // Add quantity to JSON
       };
 }
