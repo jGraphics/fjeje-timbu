@@ -17,6 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 # File structure
 
+```
 lib/
 │
 ├── models/
@@ -30,7 +31,7 @@ lib/
 ├── constants/
 │   ├── colors.dart
 │   ├── bNav.dart
-│   ├── spalshScreen.dart
+│   ├── splashscreen.dart
 │   ├── onboardData.dart
 │
 ├── screens/
@@ -43,3 +44,19 @@ lib/
 
 │
 └── main.dart
+
+```
+
+## Images
+Started with this,
+
+![Screenshot_1720474840](https://github.com/jGraphics/fjeje-timbu/assets/89115888/939bb52f-e57f-478b-b246-ed4d8a94e3a3)
+
+Then, I changed to a list card view of products from my Timbu API store.
+![Screenshot_1720492438](https://github.com/jGraphics/fjeje-timbu/assets/89115888/b7b354ae-1e11-43bf-b503-2b6e039161a2)
+
+### Social Media
+
+Twitter: <https://twitter.com/drpearlz>
+
+Facebook: <https://www.facebook.com/peggicherrie>
