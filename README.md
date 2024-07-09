@@ -1,4 +1,5 @@
 # fjeje_timbu
+<p align="left"> <img src="https://komarev.com/ghpvc/?username=jgraphics&label=Profile%20views&color=0e75b6&style=flat" alt="jgraphics" /> </p>
 
 A Flutter project for HNG 11 Satage 3 promo mobile task.
 The problem was to build an app that makes use of the [Timbu Api](https://api.timbu.com)
@@ -8,23 +9,30 @@ The problem was to build an app that makes use of the [Timbu Api](https://api.ti
 <table>
   <tr>
     <td>SplashScreen</td>
-     <td>Home Products view</td>
-     <td>Cart View</td>
+     <td>Home Products listview</td>
+     <td>Dynamic Carousel Reviews</td>
   </tr>
   <tr>
     <td><img src="assets/images/splash.png" width=270 height=480></td>
     <td><img src="assets/images/11.png" width=270 height=480></td>
-    <td><img src="screenshots/12.png" width=270 height=480></td>
+    <td><img src="assets/images/cdet.png" width=270 height=480></td>
   </tr>
  </table>
  
- 
- I started with this,
+  I started with this,
+<table>
+  <tr>
+    <td>Former gridview</td>
+     <td>Current ListView of Product</td>
+     <td>Confirmation Page</td>
+  </tr>
+  <tr>
+    <td><img src="assets/images/52.png" width=270 height=480></td>
+    <td><img src="assets/images/a2c2.png" width=270 height=480></td>
+    <td><img src="assets/images/done.png" width=270 height=480></td>
+  </tr>
+ </table>
 
-![Screenshot_1720474840](https://github.com/jGraphics/fjeje-timbu/assets/89115888/939bb52f-e57f-478b-b246-ed4d8a94e3a3)
-
-Then, I changed to a list card view of products from my Timbu API store.
-![Screenshot_1720492438](https://github.com/jGraphics/fjeje-timbu/assets/89115888/b7b354ae-1e11-43bf-b503-2b6e039161a2)
 
 
 
@@ -67,7 +75,7 @@ This application uses the Timbu API to fetch product information. Ensure you hav
 - Install dependencies: Make sure you have Flutter installed. Then run:  `flutter pub get`
 - To run the app:  `flutter run`
 
-
+To download apk, click <a href="https://drive.google.com/drive/folders/1HuJf-TPLKT6VWD8BygloYgl77BSsKiLt?usp=drive_link"> here </a>
 
 # File structure
 
@@ -127,21 +135,7 @@ Splashscreen/
 │
 ```
 
-<p  align="middle">
-  <img src=![Screenshot_1720494965](https://github.com/jGraphics/fjeje-timbu/assets/89115888/c2dc8044-92cc-4a36-8b08-c1783e8cd5df)" width="100" />
-  <img src="![Screenshot_1720494882](https://github.com/jGraphics/fjeje-timbu/assets/89115888/9e028969-7819-4065-9867-9567a89c1041)" width="100" /> 
-  <img src="![Screenshot_1720494900](https://github.com/jGraphics/fjeje-timbu/assets/89115888/3cbc2aec-cebf-4df1-be86-e04a9c756245)" width="100" />
- <img src="![Screenshot_1720494975](https://github.com/jGraphics/fjeje-timbu/assets/89115888/f7ae0e12-61e7-4aa0-98c3-1e637ed55ec7)" width="100" />
-</p>
 
-<p  align="middle">
- After Onboarding:
-  <img src="" width="100" />
-  <img src="![Screenshot_1720494882](https://github.com/jGraphics/fjeje-timbu/assets/89115888/9e028969-7819-4065-9867-9567a89c1041)" width="100" /> 
-  <img src="![Screenshot_1720498390](https://github.com/jGraphics/fjeje-timbu/assets/89115888/cef4bc8c-9dc0-45e1-bfcd-00ae9a14378a)" width="100" />
- <img src="![Screenshot_1720495047](https://github.com/jGraphics/fjeje-timbu/assets/89115888/cc9cc7ca-f8e7-415f-946a-481117d5af52)" width="100" />
- <img src="![Screenshot_1720495086](https://github.com/jGraphics/fjeje-timbu/assets/89115888/f77c93c4-d595-4c7e-9862-4970bd6090e1)" width="100" />
-</p>
 # Social Media
 
 Twitter: <https://twitter.com/drpearlz>
