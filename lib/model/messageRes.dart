@@ -29,7 +29,7 @@ void success({String? message, required BuildContext context}) {
                       'Success!',
                       softWrap: true,
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 14,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -39,7 +39,8 @@ void success({String? message, required BuildContext context}) {
                       message!,
                       softWrap: true,
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                     ),

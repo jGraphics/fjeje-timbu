@@ -50,6 +50,7 @@ class MyApp extends StatelessWidget {
           'cart': (context) => CartPage(
             cart: const [], 
             removeFromCart: (product) {},
+            updateCart: () {  },
           ),
           'profile': (context) => const ProfileScreen(),
           'product': (context) => ProductScreen(

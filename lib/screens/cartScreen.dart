@@ -7,8 +7,14 @@ import 'package:fjeje_timbu/apis/models/listOfProductItem.dart';
 class CartPage extends StatefulWidget {
   final List<Item> cart;
   final void Function(Item product) removeFromCart;
+  final void Function() updateCart;
 
-  const CartPage({super.key, required this.cart, required this.removeFromCart});
+  const CartPage({
+    super.key,
+    required this.cart,
+    required this.removeFromCart,
+    required this.updateCart,
+  });
 
   @override
   _CartPageState createState() => _CartPageState();
@@ -24,6 +30,7 @@ class _CartPageState extends State<CartPage> {
       widget.cart.clear();
     });
 
+    widget.updateCart(); // Update cart state
     success(context: context, message: 'Cart cleared.');
   }
 
@@ -31,14 +38,19 @@ class _CartPageState extends State<CartPage> {
     setState(() {
       product.quantity++;
     });
+    widget.updateCart(); // Update cart state
   }
 
-  void decrementQuantity(Item product) {
+void decrementQuantity(Item product) {
     setState(() {
       if (product.quantity > 1) {
         product.quantity--;
+      } else {
+        success(context: context, message: '${product.name} removed from cart');
+        widget.removeFromCart(product);
       }
     });
+    widget.updateCart();
   }
 
   @override
@@ -59,8 +71,8 @@ class _CartPageState extends State<CartPage> {
             ? Column(
                 children: [
                   const Text(
-                    "Products in Your cart",
-                    style: TextStyle(fontSize: 20),
+                    "Your cart Items",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 20,
@@ -114,6 +126,7 @@ class _CartPageState extends State<CartPage> {
                             setState(() {
                               widget.removeFromCart(product);
                             });
+                            widget.updateCart(); // Update cart state
                           },
                         ),
                       );

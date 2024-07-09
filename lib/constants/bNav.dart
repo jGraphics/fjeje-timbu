@@ -14,7 +14,7 @@ class BNavWidget extends StatefulWidget {
 
 class _BNavWidgetState extends State<BNavWidget> {
   int _selectedIndex = 0;
-  List<Item> cart = []; 
+  List<Item> cart = [];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -24,7 +24,13 @@ class _BNavWidgetState extends State<BNavWidget> {
 
   void addToCart(Item product) {
     setState(() {
-      cart.add(product);
+      int index = cart.indexWhere((item) => item.id == product.id);
+      if (index != -1) {
+        cart[index].quantity += 1;
+      } else {
+        product.quantity = 1;
+        cart.add(product);
+      }
     });
   }
 
@@ -32,6 +38,14 @@ class _BNavWidgetState extends State<BNavWidget> {
     setState(() {
       cart.remove(product);
     });
+  }
+
+  void updateCart() {
+    setState(() {});
+  }
+
+  int getTotalCartQuantity() {
+    return cart.fold(0, (total, current) => total + current.quantity);
   }
 
   List<Widget> _widgetOptions() {
@@ -43,14 +57,15 @@ class _BNavWidgetState extends State<BNavWidget> {
       CartPage(
         cart: cart,
         removeFromCart: removeFromCart,
+        updateCart: updateCart,
       ),
-      const ProfileScreen(), 
+      const ProfileScreen(),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
-    int cartItemCount = cart.length;
+    int cartItemCount = getTotalCartQuantity();
     return Scaffold(
       body: Center(
         child: _widgetOptions().elementAt(_selectedIndex),
@@ -58,14 +73,14 @@ class _BNavWidgetState extends State<BNavWidget> {
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           const BottomNavigationBarItem(
-          icon: Icon(Icons.house_rounded),
+            icon: Icon(Icons.house_rounded),
             label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Stack(
               children: <Widget>[
                 const Icon(Icons.shopping_cart_outlined),
-                if (cart.isNotEmpty)
+                if (cartItemCount > 0)
                   Positioned(
                     right: 0,
                     child: Container(
