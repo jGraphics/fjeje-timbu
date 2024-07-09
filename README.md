@@ -5,12 +5,28 @@ The problem was to build an app that makes use of the [Timbu Api](https://api.ti
  to fetch 10 products. Products should have a view/details. This Flutter application allows users to browse and add products to their cart, interacting with the Timbu API to fetch and display product information.
 
 # Images Preview
-I started with this,
+<table>
+  <tr>
+    <td>SplashScreen</td>
+     <td>Home Products view</td>
+     <td>Cart View</td>
+  </tr>
+  <tr>
+    <td><img src="assets/images/splash.png" width=270 height=480></td>
+    <td><img src="assets/images/11.png" width=270 height=480></td>
+    <td><img src="screenshots/12.png" width=270 height=480></td>
+  </tr>
+ </table>
+ 
+ 
+ I started with this,
 
 ![Screenshot_1720474840](https://github.com/jGraphics/fjeje-timbu/assets/89115888/939bb52f-e57f-478b-b246-ed4d8a94e3a3)
 
 Then, I changed to a list card view of products from my Timbu API store.
 ![Screenshot_1720492438](https://github.com/jGraphics/fjeje-timbu/assets/89115888/b7b354ae-1e11-43bf-b503-2b6e039161a2)
+
+
 
 # Table of Contents
 
