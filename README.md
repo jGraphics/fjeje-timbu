@@ -111,6 +111,21 @@ Splashscreen/
 │
 ```
 
+<p  align="middle">
+  <img src=![Screenshot_1720494965](https://github.com/jGraphics/fjeje-timbu/assets/89115888/c2dc8044-92cc-4a36-8b08-c1783e8cd5df)" width="100" />
+  <img src="![Screenshot_1720494882](https://github.com/jGraphics/fjeje-timbu/assets/89115888/9e028969-7819-4065-9867-9567a89c1041)" width="100" /> 
+  <img src="![Screenshot_1720494900](https://github.com/jGraphics/fjeje-timbu/assets/89115888/3cbc2aec-cebf-4df1-be86-e04a9c756245)" width="100" />
+ <img src="![Screenshot_1720494975](https://github.com/jGraphics/fjeje-timbu/assets/89115888/f7ae0e12-61e7-4aa0-98c3-1e637ed55ec7)" width="100" />
+</p>
+
+<p  align="middle">
+ After Onboarding:
+  <img src="" width="100" />
+  <img src="![Screenshot_1720494882](https://github.com/jGraphics/fjeje-timbu/assets/89115888/9e028969-7819-4065-9867-9567a89c1041)" width="100" /> 
+  <img src="![Screenshot_1720498390](https://github.com/jGraphics/fjeje-timbu/assets/89115888/cef4bc8c-9dc0-45e1-bfcd-00ae9a14378a)" width="100" />
+ <img src="![Screenshot_1720495047](https://github.com/jGraphics/fjeje-timbu/assets/89115888/cc9cc7ca-f8e7-415f-946a-481117d5af52)" width="100" />
+ <img src="![Screenshot_1720495086](https://github.com/jGraphics/fjeje-timbu/assets/89115888/f77c93c4-d595-4c7e-9862-4970bd6090e1)" width="100" />
+</p>
 # Social Media
 
 Twitter: <https://twitter.com/drpearlz>
