@@ -10,7 +10,8 @@ class ProductScreen extends StatefulWidget {
   final void Function(Item product) addToCart;
 
   const ProductScreen(
-      {super.key, required this.cart, required this.addToCart});
+      {Key? key, required this.cart, required this.addToCart})
+      : super(key: key);
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -42,101 +43,127 @@ class _ProductScreenState extends State<ProductScreen> {
       backgroundColor: const Color.fromARGB(255, 243, 235, 235),
       appBar: AppBar(
         title: const Text('Jejelove Products - Timbu', 
-        style: TextStyle(color: Colors.white,
-        fontWeight: FontWeight.bold
-        ),
+        style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
         backgroundColor: colorPrimary,
         elevation: 4.0,
       ),
-      body: get.loading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-              child: ListView.builder(
-                itemCount: _list.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var product = _list[index];
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ViewProductPage(
-                            id: product.id,
-                            itemPrice: product.currentPrice?[0].ngn[0].toString(),
-                          ),
-                        ),
-                      );
-                    },
-                    child: Card(
-                      color: Colors.white.withOpacity(1),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          top: 10.0,
-                          bottom: 10,
-                          left: 10,
-                          right: 10,
-                        ),
-                        child: Column(
-                          children: [
-                            Center(
-                              child: Image.network(
-                                "https://api.timbu.cloud/images/${product.photos[0].url}",
-                                height: 230,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '₦${product.currentPrice?[0].ngn[0].toString()}',
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.shopping_bag_outlined,
-                                  color: colorPrimary,
-                                  size: 24,),
-                                  onPressed: () {
-                                    success(
-                                        context,
-                                        "${product.name} added to cart",
-                                        colorPrimary);
-                                    widget.addToCart(product);
-                                  },
-                                ),
-                              ],
-                            ),
-                            Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Text(
-                                product.name!,
-                                textAlign: TextAlign.start,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+          child: get.loading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Column(
+                  children: [
+                    GridView.builder(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 8,
+                        crossAxisSpacing: 8,
+                        mainAxisExtent: 350,
                       ),
+                      itemCount: _list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var product = _list[index];
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ViewProductPage(
+                                  id: product.id,
+                                  itemPrice: product.currentPrice?[0].ngn[0].toString(),
+                                ),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            color: Colors.white.withOpacity(1),
+                            child: SizedBox(
+                              width: 400,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 5.0,
+                                  bottom: 5,
+                                  left: 10,
+                                  right: 10,
+                                ),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      width: 350,
+                                      height: 250,
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          Center(
+                                            child: Image.network(
+                                              "https://api.timbu.cloud/images/${product.photos[0].url}",
+                                              height: 230,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          '₦${product.currentPrice?[0].ngn[0].toString()}',
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        IconButton(
+                                          icon: const Icon(Icons.shopping_bag_outlined,
+                                          color: colorPrimary,
+                                          size: 24,),
+                                          onPressed: () {
+                                            success(
+                                                context,
+                                                "${product.name} added to cart",
+                                                colorPrimary);
+                                            widget.addToCart(product);
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                    Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Text(
+                                        product.name!,
+                                        textAlign: TextAlign.start,
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
-            ),
+                  ],
+                ),
+        ),
+      ),
     );
   }
 }
 
-void success(BuildContext context, String successMessage, Color color) {
+void success(BuildContext context, String successMessage, Color color, {required String message}) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       backgroundColor: color,

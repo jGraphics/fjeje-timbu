@@ -94,13 +94,14 @@ class _ViewProductPageState extends State<ViewProductPage> {
                             "https://api.timbu.cloud/images/${item2!.photos[index].url}";
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Image.network(
+                          child: Center(child: Image.network(
                             photoUrl,
                             height: 250,
                             width: 250,
                             fit: BoxFit.contain,
                           ),
-                        );
+                         ),
+                          );
                       },
                     ),
                   ),

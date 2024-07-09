@@ -22,24 +22,28 @@ class _BNavWidgetState extends State<BNavWidget> {
     });
   }
 
-  void addToCart(Item product) {
+ void addToCart(Item product) {
     setState(() {
-      int index = cart.indexWhere((item) => item.id == product.id);
-      if (index != -1) {
-        cart[index].quantity += 1;
+      final existingItemIndex = cart.indexWhere((item) => item.id == product.id);
+      if (existingItemIndex >= 0) {
+        cart[existingItemIndex].quantity++;
       } else {
-        product.quantity = 1;
         cart.add(product);
       }
     });
   }
 
-  void removeFromCart(Item product) {
+void removeFromCart(Item product) {
     setState(() {
-      cart.remove(product);
+      final existingItemIndex = cart.indexWhere((item) => item.id == product.id);
+      if (existingItemIndex >= 0) {
+        cart[existingItemIndex].quantity--;
+        if (cart[existingItemIndex].quantity == 0) {
+          cart.removeAt(existingItemIndex);
+        }
+      }
     });
   }
-
   void updateCart() {
     setState(() {});
   }
