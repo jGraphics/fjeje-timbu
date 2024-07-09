@@ -8,7 +8,7 @@ final List<String> titlesList = [
 final List<String> subtitlesList = [
   'Built with flutter 3 nights long',
   'Debugging the api bugs with slack devs.',
-  'See the Productst'
+  'See the Products'
 ];
 final List<dynamic> imageList = [
   Icons.school_rounded,

@@ -1,8 +1,9 @@
 import 'models/mainListProduct.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
 import 'package:fjeje_timbu/apis/connectionUrl/apiUrl.dart';
 import 'package:fjeje_timbu/apis/models/listOfProductItem.dart';
+
 
 
 class TimbuApiProvider with ChangeNotifier {
@@ -17,7 +18,9 @@ class TimbuApiProvider with ChangeNotifier {
     setLoading(true);
     var getTimbu =
         '${Timbu().productUrl}?&organization_id=${Timbu().organizationId}&Appid=${Timbu().appId}&Apikey=${Timbu().apiKey}';
-    print(getTimbu);
+    if (kDebugMode) {
+      print(getTimbu);
+    }
     var res = await http.get(
       Uri.parse(getTimbu),
       headers: {
@@ -40,7 +43,9 @@ class TimbuApiProvider with ChangeNotifier {
     setLoading(true);
     var getTimbu =
         '${Timbu().productUrl}/${id}?&organization_id=${Timbu().organizationId}&Appid=${Timbu().appId}&Apikey=${Timbu().apiKey}';
-    print(getTimbu);
+    if (kDebugMode) {
+      print(getTimbu);
+    }
     var res = await http.get(
       Uri.parse(getTimbu),
       headers: {

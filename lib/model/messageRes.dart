@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fjeje_timbu/constants/colors.dart';
 
 void success({String? message, required BuildContext context}) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -7,13 +8,13 @@ void success({String? message, required BuildContext context}) {
         padding: const EdgeInsets.all(8),
         height: 80,
         decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 29, 226, 19),
+          color: colorPrimary,
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         child: Row(
           children: [
             const Icon(
-              Icons.check,
+              Icons.check_circle_outline,
               color: Colors.white,
               size: 40,
             ),
@@ -22,23 +23,30 @@ void success({String? message, required BuildContext context}) {
             ),
             Expanded(
                 child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'success',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Success!',
+                      softWrap: true,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      message!,
+                      softWrap: true,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-                const Spacer(),
-                Text(message!,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                    ))
-              ],
-            ))
+              ),
+            
           ],
         ),
       ),

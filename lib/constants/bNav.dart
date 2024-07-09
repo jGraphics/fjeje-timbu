@@ -14,7 +14,7 @@ class BNavWidget extends StatefulWidget {
 
 class _BNavWidgetState extends State<BNavWidget> {
   int _selectedIndex = 0;
-  List<Item> cart = []; // Assuming you have an Item class defined elsewhere
+  List<Item> cart = []; 
 
   void _onItemTapped(int index) {
     setState(() {

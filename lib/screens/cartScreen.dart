@@ -43,7 +43,7 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    double totalPrice = widget.cart.fold(0.0, (previousValue, product) {
+    double totalPrice = widget.cart.fold(0.00, (previousValue, product) {
       return previousValue +
           (product.currentPrice?[0].ngn[0] * product.quantity);
     });
@@ -130,8 +130,8 @@ class _CartPageState extends State<CartPage> {
                     ),
                   ),
                   const SizedBox(
-                    width: 50,
-                    height: 50,
+                    width: 40,
+                    height: 40,
                   ),
                   Center(
                     child: InkWell(
@@ -150,7 +150,7 @@ class _CartPageState extends State<CartPage> {
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 13,
-                                  fontWeight: FontWeight.w800)),
+                                  fontWeight: FontWeight.bold)),
                         ),
                       ),
                     ),
@@ -165,7 +165,7 @@ class _CartPageState extends State<CartPage> {
                     height: 200,
                   ),
                   Center(
-                    child: Text('0 Items in Your Cart'),
+                    child: Text('No Items in Your Cart'),
                   ),
                 ],
               ),

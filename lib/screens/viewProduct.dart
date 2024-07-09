@@ -1,5 +1,7 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:fjeje_timbu/apis/timbu_api.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:fjeje_timbu/constants/colors.dart';
@@ -20,16 +22,19 @@ class _ViewProductPageState extends State<ViewProductPage> {
   @override
   void initState() {
     super.initState();
-    print("${widget.id}");
+    if (kDebugMode) {
+      print("${widget.id}");
+    }
     getAproduct();
   }
 
   var name = '';
   Item2? item2;
+
   void getAproduct() {
     var get = Provider.of<TimbuApiProvider>(context, listen: false);
     get.getAProduct(widget.id!).then((onValue) => {
-          print(onValue.name),
+          log(onValue.name),
           setState(() {
             name = onValue.name;
             item2 = onValue;
@@ -39,12 +44,14 @@ class _ViewProductPageState extends State<ViewProductPage> {
 
   void addTocart(Item2 productModel) async {
     cart2.add(productModel);
-    print('${productModel.name} added to cart');
+    if (kDebugMode) {
+      print('${productModel.name} added to cart');
+    }
     success(context: context, message: "${productModel.name} is now in cart");
   }
 
-  String text = lorem(paragraphs: 1, words: 15);
-  String text2 = lorem(paragraphs: 1, words: 10);
+  String text = lorem(paragraphs: 1, words: 20);
+  String text2 = lorem(paragraphs: 1, words: 19);
 
   @override
   Widget build(BuildContext context) {
@@ -71,14 +78,14 @@ class _ViewProductPageState extends State<ViewProductPage> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: get.loading
-            ? const Center(child: CircularProgressIndicator())
-            : Column(
+      body: get.loading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SizedBox(
-                    height: 300,
+                    height: 350,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: item2!.photos.length,
@@ -91,15 +98,14 @@ class _ViewProductPageState extends State<ViewProductPage> {
                             photoUrl,
                             height: 250,
                             width: 250,
-                            fit: BoxFit.cover,
-                            alignment: Alignment.center,
+                            fit: BoxFit.contain,
                           ),
                         );
                       },
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Container(
                     decoration: const BoxDecoration(
@@ -110,20 +116,23 @@ class _ViewProductPageState extends State<ViewProductPage> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10.0, right: 10),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(
-                            height: 40,
+                            height: 30,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 item2!.name.toUpperCase(),
+                                softWrap: true,
                                 style: const TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 17,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black),
                               ),
+                              const SizedBox(height: 10,),
                               Text(
                                 '₦${widget.itemPrice}',
                                 style: const TextStyle(
@@ -139,10 +148,10 @@ class _ViewProductPageState extends State<ViewProductPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Quantity = ${item2!.availableQuantity} pcs available now ',
-                              style: const TextStyle(
-                                color: Colors.orange),
-                                ),
+                              Text(
+                                'Quantity = ${item2!.availableQuantity} pcs available now',
+                                style: const TextStyle(color: Colors.orange),
+                              ),
                               InkWell(
                                 onTap: () {},
                                 child: const SizedBox(
@@ -204,7 +213,7 @@ class _ViewProductPageState extends State<ViewProductPage> {
                   )
                 ],
               ),
-      ),
+            ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(color: Colors.white),
         child: InkWell(
@@ -247,6 +256,5 @@ class _ViewProductPageState extends State<ViewProductPage> {
         ),
       ),
     );
-  }  
   }
-
+}
