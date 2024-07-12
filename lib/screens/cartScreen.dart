@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:fjeje_timbu/constants/colors.dart';
 import 'package:fjeje_timbu/model/messageRes.dart';
@@ -21,6 +22,8 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  final NumberFormat currencyFormat = NumberFormat.currency(symbol: '₦', decimalDigits: 2);
+
   void checkout() {
     Navigator.push(
       context,
@@ -41,7 +44,7 @@ class _CartPageState extends State<CartPage> {
     widget.updateCart(); // Update cart state
   }
 
-void decrementQuantity(Item product) {
+  void decrementQuantity(Item product) {
     setState(() {
       if (product.quantity > 1) {
         product.quantity--;
@@ -135,7 +138,7 @@ void decrementQuantity(Item product) {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      'Total Price: ₦$totalPrice',
+                      'Total Price: ${currencyFormat.format(totalPrice)}',
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

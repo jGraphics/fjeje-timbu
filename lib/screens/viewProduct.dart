@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
@@ -11,14 +12,18 @@ import 'package:fjeje_timbu/apis/models/listOfProductItem.dart';
 
 class ViewProductPage extends StatefulWidget {
   const ViewProductPage({super.key, this.id, this.itemPrice});
-  final id;
-  final itemPrice;
+  final String? id;
+  final String? itemPrice;
 
   @override
   State<ViewProductPage> createState() => _ViewProductPageState();
 }
 
 class _ViewProductPageState extends State<ViewProductPage> {
+  var name = '';
+  Item2? item2;
+  bool isLoading = true;
+
   @override
   void initState() {
     super.initState();
@@ -28,21 +33,25 @@ class _ViewProductPageState extends State<ViewProductPage> {
     getAproduct();
   }
 
-  var name = '';
-  Item2? item2;
-
-  void getAproduct() {
+  void getAproduct() async {
     var get = Provider.of<TimbuApiProvider>(context, listen: false);
-    get.getAProduct(widget.id!).then((onValue) => {
-          log(onValue.name),
-          setState(() {
-            name = onValue.name;
-            item2 = onValue;
-          })
-        });
+    try {
+      var product = await get.getAProduct(widget.id!);
+      setState(() {
+        name = product.name;
+        item2 = product;
+        isLoading = false;
+      });
+      log(product.name);
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      log("Error fetching product: $e");
+    }
   }
 
-  void addTocart(Item2 productModel) async {
+  void addTocart(Item2 productModel) {
     cart2.add(productModel);
     if (kDebugMode) {
       print('${productModel.name} added to cart');
@@ -53,9 +62,11 @@ class _ViewProductPageState extends State<ViewProductPage> {
   String text = lorem(paragraphs: 1, words: 20);
   String text2 = lorem(paragraphs: 1, words: 19);
 
+  final NumberFormat currencyFormat = NumberFormat.currency(symbol: '₦', decimalDigits: 2);
+
   @override
   Widget build(BuildContext context) {
-    var get = context.watch<TimbuApiProvider>();
+    double? itemPrice = double.tryParse(widget.itemPrice?.replaceAll('₦', '').replaceAll(',', '') ?? '0');
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 243, 235, 235),
       appBar: AppBar(
@@ -78,140 +89,144 @@ class _ViewProductPageState extends State<ViewProductPage> {
         ),
         centerTitle: true,
       ),
-      body: get.loading
+      body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(
-                    height: 350,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: item2!.photos.length,
-                      itemBuilder: (context, index) {
-                        var photoUrl =
-                            "https://api.timbu.cloud/images/${item2!.photos[index].url}";
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Center(child: Image.network(
-                            photoUrl,
-                            height: 250,
-                            width: 250,
-                            fit: BoxFit.contain,
-                          ),
-                         ),
+                  if (item2 != null) ...[
+                    SizedBox(
+                      height: 350,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: item2!.photos.length,
+                        itemBuilder: (context, index) {
+                          var photoUrl =
+                              "https://api.timbu.cloud/images/${item2!.photos[index].url}";
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Image.network(
+                                photoUrl,
+                                height: 250,
+                                width: 250,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
                           );
-                      },
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40),
-                            topRight: Radius.circular(40))),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10.0, right: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                item2!.name.toUpperCase(),
-                                softWrap: true,
-                                style: const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
-                              const SizedBox(height: 10,),
-                              Text(
-                                '₦${widget.itemPrice}',
-                                style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Quantity = ${item2!.availableQuantity} pcs available now',
-                                style: const TextStyle(color: Colors.orange),
-                              ),
-                              InkWell(
-                                onTap: () {},
-                                child: const SizedBox(
-                                  width: 50,
-                                  height: 40,
-                                ),
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Text(
-                                        "Description",
-                                        style: TextStyle(
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      item2!.description == null
-                                          ? Text(
-                                              text2,
-                                              softWrap: true,
-                                              style: const TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Colors.black),
-                                            )
-                                          : Text(
-                                              item2!.description,
-                                              style: const TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Colors.black),
-                                            )
-                                    ]),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          ReviewSlider(),
-                        ],
+                        },
                       ),
                     ),
-                  )
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(40),
+                              topRight: Radius.circular(40))),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0, right: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  item2!.name.toUpperCase(),
+                                  softWrap: true,
+                                  style: const TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                ),
+                                const SizedBox(height: 10,),
+                                Text(
+                                  currencyFormat.format(itemPrice),
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Quantity = ${item2!.availableQuantity} pcs available now',
+                                  style: const TextStyle(color: Colors.orange),
+                                ),
+                                InkWell(
+                                  onTap: () {},
+                                  child: const SizedBox(
+                                    width: 50,
+                                    height: 40,
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          "Description",
+                                          style: TextStyle(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        item2!.description == null
+                                            ? Text(
+                                                text2,
+                                                softWrap: true,
+                                                style: const TextStyle(
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.normal,
+                                                    color: Colors.black),
+                                              )
+                                            : Text(
+                                                item2!.description,
+                                                style: const TextStyle(
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.normal,
+                                                    color: Colors.black),
+                                              )
+                                      ]),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            ReviewSlider(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ] else
+                    const Center(child: Text("Product not found")),
                 ],
               ),
             ),

@@ -1,9 +1,7 @@
-import 'apis/timbu_api.dart'; 
+import 'apis/timbu_api.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/foundation.dart';
 import 'package:fjeje_timbu/constants/bNav.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:fjeje_timbu/screens/cartScreen.dart';
 import 'package:fjeje_timbu/screens/viewProduct.dart';
 import 'package:fjeje_timbu/screens/splashScreen.dart';
@@ -13,15 +11,9 @@ import 'package:fjeje_timbu/screens/profileScreen.dart';
 import 'package:fjeje_timbu/screens/checkoutScreen.dart';
 import 'package:fjeje_timbu/screens/onboardingScreen.dart';
 
-
-
-void main() => 
-  runApp(
-  DevicePreview(
-    enabled: !kReleaseMode,
-    builder: (context) => const MyApp(),
-    ),
-  );
+void main() => runApp(
+      const MyApp(),
+    );
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key});
@@ -35,38 +27,33 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        locale: DevicePreview.locale(context),
-        builder: DevicePreview.appBuilder,
         title: 'Jejelove x HNG 11',
         theme: ThemeData(
-          primarySwatch: Colors.indigo,
-          pageTransitionsTheme: const PageTransitionsTheme(
-            builders: {
+            primarySwatch: Colors.indigo,
+            pageTransitionsTheme: const PageTransitionsTheme(builders: {
               TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
-            }
-          )
-        ),
+            })),
         debugShowCheckedModeBanner: false,
         initialRoute: 'splash', // Set the initial route to 'splash'
         routes: {
           'splash': (context) => const Splash2(),
           'bnav': (context) => const BNavWidget(),
           'onboarding': (context) => OnBoarding(
-            images: imageList,
-            titles: titlesList,
-            subtitles: subtitlesList,
-          ),
+                images: imageList,
+                titles: titlesList,
+                subtitles: subtitlesList,
+              ),
           'checkout': (context) => const CheckoutSuccessPage(),
           'cart': (context) => CartPage(
-            cart: const [], 
-            removeFromCart: (product) {},
-            updateCart: () {  },
-          ),
+                cart: const [],
+                removeFromCart: (product) {},
+                updateCart: () {},
+              ),
           'profile': (context) => const ProfileScreen(),
           'product': (context) => ProductScreen(
-            cart: const [], 
-            addToCart: (product) {},
-          ),
+                cart: const [],
+                addToCart: (product) {},
+              ),
           'products-detail': (context) => const ViewProductPage(),
         },
       ),

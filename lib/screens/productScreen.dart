@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fjeje_timbu/apis/timbu_api.dart';
@@ -37,6 +38,7 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     final get = context.watch<TimbuApiProvider>();
+    final NumberFormat currencyFormat = NumberFormat.currency(symbol: '₦', decimalDigits: 2);
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 243, 235, 235),
@@ -67,7 +69,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         MaterialPageRoute(
                           builder: (context) => ViewProductPage(
                             id: product.id,
-                            itemPrice: product.currentPrice?[0].ngn[0].toString(),
+                            itemPrice: currencyFormat.format(product.currentPrice?[0].ngn[0] ?? 0),
                           ),
                         ),
                       );
@@ -94,7 +96,7 @@ class _ProductScreenState extends State<ProductScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  '₦${product.currentPrice?[0].ngn[0].toString()}',
+                                  currencyFormat.format(product.currentPrice?[0].ngn[0] ?? 0),
                                   style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
