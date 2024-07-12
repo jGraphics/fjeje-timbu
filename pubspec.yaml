@@ -23,13 +23,14 @@ dependencies:
   flutter_lorem: ^2.0.0
   smooth_page_indicator: ^1.1.0
   page_transition: ^2.1.0
+  device_preview: ^1.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
  
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
 
 
 

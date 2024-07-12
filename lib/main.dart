@@ -1,6 +1,9 @@
+import 'apis/timbu_api.dart'; 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:fjeje_timbu/constants/bNav.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:fjeje_timbu/screens/cartScreen.dart';
 import 'package:fjeje_timbu/screens/viewProduct.dart';
 import 'package:fjeje_timbu/screens/splashScreen.dart';
@@ -9,11 +12,16 @@ import 'package:fjeje_timbu/screens/productScreen.dart';
 import 'package:fjeje_timbu/screens/profileScreen.dart';
 import 'package:fjeje_timbu/screens/checkoutScreen.dart';
 import 'package:fjeje_timbu/screens/onboardingScreen.dart';
-import 'apis/timbu_api.dart'; // Ensure this import is correct based on your project structure
 
-void main() {
-  runApp(const MyApp());
-}
+
+
+void main() => 
+  runApp(
+  DevicePreview(
+    enabled: !kReleaseMode,
+    builder: (context) => const MyApp(),
+    ),
+  );
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key});
@@ -27,6 +35,8 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        locale: DevicePreview.locale(context),
+        builder: DevicePreview.appBuilder,
         title: 'Jejelove x HNG 11',
         theme: ThemeData(
           primarySwatch: Colors.indigo,
