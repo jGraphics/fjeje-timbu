@@ -47,7 +47,7 @@ The problem was to build an app that makes use of the [Timbu Api](https://api.ti
 * [Installation](#installation)
 * [App Routing/structure](#app-routing-structure)
 * [Social Media](#social-media)
-* 
+ 
 # Getting Started
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
